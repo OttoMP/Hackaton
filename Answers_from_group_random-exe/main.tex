@@ -1,0 +1,974 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{titlesec}
+\usepackage[a4paper, top=2.5cm, bottom=2.5cm, left=1.5cm, right=1.5cm]{geometry}
+\begin{document}
+\section*{Introduction to Applications of Quantum Computing to Quantum Chemistry}
+Both the Exercises and Challenge are uploaded as Jupyter notebooks.
+\section*{Bose-Einstien Condensates and the Involvement in Advances for New Technologies}
+
+%\subsection{Interaction between atoms and low energy limit(Exercise)}
+
+\textbf{(1) [Exercise] Interactions between atoms and the low-energy limit.}\\
+
+\textbf{a)}\\
+Scattering is taken into account by introducing a potential $U(\bold{r})$ that acts on an initial state, and we obtain a final state, in a finite range $(r<R)$ with hamiltonian
+\[
+H = H_0 + U(\mathbf{r})
+\]
+the result for the asymptotic behavior of the wave function is (for large r)
+\[
+\psi(\mathbf{r})\rightarrow \frac{1}{(2\pi)^{3/2}} \left[ e^{i\mathbf{k.r}}+\frac{e^{ik.r}}{r}f(\mathbf{k},\mathbf{k'})\right]
+\]
+where
+\[
+f(\mathbf{k},\mathbf{k'})=-\frac{m(2\pi)^3}{2\pi\hbar^2}\int d^3r'\langle \mathbf{k'}|\mathbf{r'}\rangle U(\mathbf{r'})\langle \mathbf{r'}|\mathbf{\psi}\rangle 
+\]
+To obtain the last wave function, we assumed the scattering potential $U(\mathbf{r})$ to be real, finite-ranged, local, and that it is spherically symmetric. Hence, we can write $U(\mathbf{r})$ $= U(r)$. In the scattering region $(0 < r < R)$, we can write the Schrödinger equation as
+\[
+ -\frac{\hbar^2}{2m} \nabla^2\psi+U(r)\psi = E\psi
+\]
+Due to the spherical symmetry of $U(r)$ the Laplacian can be expressed in spherical coordinates
+\[
+ \left(-\frac{\hbar^2}{2m}\frac{1}{r}\frac{\partial^2}{\partial r^2}r+\frac{L^2}{2mr^2} +U(r)\right)\psi(r,\theta,\phi) = E\psi(r,\theta,\phi)
+\]
+where $L$ is the angular momentum operator. From the last equation we can see that the particle is subject to the action of an effective potential
+\[
+U_{eff}(r)=U(r)+\frac{\hbar^2}{2m}\frac{l(l+1)}{r^2}
+\]
+where the second term on the right-hand side is a
+repulsive centrifugal barrier. It is absent for $l = 0$.. 
+
+For low-energy scattering, in terms of $k$ and $R$ is:
+\[
+k R \ll 1
+\]
+where the reduced wavelength $\frac{\lambda}{2\pi}=\frac{1}{k}$.
+
+
+If the energy is close to zero, the particle cannot overcome the centrifugal barrier and results with $l>0$ are not important and the component with $l=0$ is dominant to understand the low-energy scattering. Hence it is most relevant.
+\vspace{1cm}\\
+\textbf{b)} \underline{S-wave scattering length}:
+\vspace{0.5cm}\\
+S-wave scattering length is the parameter that characterizes the effective range of interaction in case of the low energy limit of the incident wave, i.e., for $l = 0$ term in the partial wave analysis referred to as “s-wave”.
+\vspace{1cm}\\
+\textbf{c)} The scattering length is given by\\
+\[
+a=\frac{m_r}{2\pi\hbar^2}\int U(\mathbf{r})d^3r
+\]
+For $U=U_0\delta(\mathbf{r}-\mathbf{r}')$:\\
+\[
+a=\frac{m_r}{2\pi\hbar^2}\int U_0\delta(\mathbf{r}-\mathbf{r}')d^3r
+\]
+\[
+a=\frac{m_r}{2\pi\hbar^2}U_0\int \delta(\mathbf{r}-\mathbf{r}')d^3r
+\]
+\[
+a=\frac{m_r}{2\pi\hbar^2}U_0\int \delta(x-x')\delta(y-y')\delta(z-z')dxdydz
+\]
+\[
+a=\frac{m_r}{2\pi\hbar^2}U_0
+\]
+\[
+U_0=\frac{2\pi\hbar^2a}{m_r}
+\]
+therefore
+\[
+U=\frac{2\pi\hbar^2a}{m_r}\delta(\mathbf{r}-\mathbf{r}')
+\]
+%\subsection{The Gross-Pitaevskii equation(Exercise)}
+\textbf{(2) [Exercise] The Gross-Pitaevskii equation.}\\
+
+\textbf{a)} We have the Hamiltonian as
+
+
+\[
+H=\sum_{i=1}^N[\frac{\mathbf{p}_i^2}{2m}+V(\mathbf{r}_i)]+U_0\sum_{i<j}\delta(\mathbf{r}_i-\mathbf{r}_j)
+\]
+and the wave function as
+
+
+\[
+\Psi(\mathbf{r}_1,\mathbf{r}_2,...,\mathbf{r}_N)=\prod_{i=1}^N\phi(r_i)
+\]
+Expectation value,
+\[
+ E= \int \Psi^*(\mathbf{r}_1,\mathbf{r}_2,...,\mathbf{r}_N)H\Psi(\mathbf{r}_1,\mathbf{r}_2,...,\mathbf{r}_N)\prod_i d^3r_i
+\]
+\[
+=\int \prod_i \left( \phi^*(r_i) \left( \sum_{i=1}^N[\frac{\mathbf{p}_i^2}{2m}+V(\mathbf{r}_i) \right) + U_0 \sum_{j<k} \delta(\mathbf{r}_i-\mathbf{r}_j) \right) \phi(r_i) d^3r_i
+\]
+\[
+\text{with}~
+\mathbf{p}_i = i\hbar \frac{\partial}{\partial x_i} + i\hbar \frac{\partial}{\partial y_i} + i\hbar \frac{\partial}{\partial z_i}
+\]
+\[
+= \prod_i \int \phi^*(\mathbf{r}_i) \left( \sum_{j=1}^{N} \left( -\frac{\hbar^2}{2m} \nabla_j^2 + V(\mathbf{r}_j) \right) + U_0 \sum_{j<k} \delta(\mathbf{r}_i-\mathbf{r}_j) \right) \phi(\mathbf{r}_i) d^3r_i
+\]
+\[\text{As} \int d^3r_i |\phi(r_i)|^2 = 1 \quad \forall i\]\\
+we get:
+\[
+= \sum_{j=1}^{N} \int \phi^*(\mathbf{r}_j) \left( -\frac{\hbar^2}{2m} \nabla_j^2 + V(\mathbf{r}_j) \right) \phi(\mathbf{r}_j) d^3r_j
+\]
+\[
++ \sum_{j=1}^N\sum_{j<k} \int \phi^*(\mathbf{r}_j) \phi^*(\mathbf{r}_k) U_0 \delta(\mathbf{r}_j - \mathbf{r}_k) \phi(\mathbf{r}_j) \phi(\mathbf{r}_k) d^3r_j d^3r_k
+\]
+\textbf{(b)} As each $\phi_i$ will give the same contribution to the integral, we have:
+\[
+E = N \int \phi^*(\mathbf{r}) \left( -\frac{\hbar^2}{2m} \nabla^2 + V(\mathbf{r}) \right) \phi(\mathbf{r}) d^3r
+\]
+\[
++ \frac{U_0 N(N-1)}{2} \int \phi^*(\mathbf{r}') \phi^*(\mathbf{r}) \delta(\mathbf{r} - \mathbf{r}') \phi(\mathbf{r}') \phi(\mathbf{r}) d^3r d^3r'
+\]
+
+\[
+= N \int \left( -\frac{\hbar^2}{2m} \phi^*(\mathbf{r})\nabla^2 \phi(\mathbf{r}) + V(\mathbf{r}) |\phi(\mathbf{r})|^2 + \frac{U_0 N(N-1)}{2} |\phi(\mathbf{r})|^4 \right) d^3r
+\]
+We have 
+\[
+\Psi(\mathbf{r}) = \sqrt{N} \phi(\mathbf{r})
+\]
+so:
+\[
+= \int \left( -\frac{\hbar^2}{2m} \Psi^*(\mathbf{r})\nabla^2 \Psi(\mathbf{r}) + V(r) |\Psi(\mathbf{r})|^2 + U_0 \left(\frac{1}{2} - \frac{1}{2N} \right) |\Psi(\mathbf{r})|^4 \right) d^3r
+\]
+For large $N$, ignoring $\frac{1}{N}$ terms:
+\[
+E = \int \left( -\frac{\hbar^2}{2m} \Psi^*(\mathbf{r})\nabla^2 \Psi(\mathbf{r}) + V(r) |\Psi(\mathbf{r})|^2 + \frac{U_0}{2} |\Psi(\mathbf{r})|^4 \right) d^3r
+\]
+Using the method of Lagrange multipliers, we have to minimize the quantity $E - \mu N$, with $\mu$ being the chemical potential, and:
+\[
+N = \int |\Psi(\mathbf{r})|^2 d^3r
+\]
+Seeing its variation w.r.t. $\Psi^*(\mathbf{r})$, we get:
+\begin{align*}
+&\frac{\partial}{\partial \Psi^*(\mathbf{r})} \left( E - \mu N \right) =\\
+&\quad \frac{\partial}{\partial \Psi^*(\mathbf{r})} \int \Big( -\frac{\hbar^2}{2m} \Psi^*(\mathbf{r})\nabla^2 \Psi(r) + V(\mathbf{r})\Psi^*(r)\Psi(\mathbf{r}) + \frac{U_0}{2}\Psi^*(\mathbf{r})\Psi(\mathbf{r})\Psi^*(\mathbf{r})\Psi(\mathbf{r})\\
+& \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad- \mu |\Psi(\mathbf{r})|^2 \Big) = 0
+\end{align*}
+
+\[
+\Rightarrow \left( -\frac{\hbar^2}{2m} \nabla^2 \Psi(\mathbf{r}) + V(\mathbf{r}) \Psi(\mathbf{r}) + U_0 |\Psi(\mathbf{r})|^2 \Psi(\mathbf{r}) - \mu \Psi(\mathbf{r}) \right) d^3r = 0
+\]
+
+Which leads to:
+\[
+\left( -\frac{\hbar^2}{2m} \nabla^2 + V(\mathbf{r}) + U_0 |\Psi(\mathbf{r})|^2 \right) \Psi(\mathbf{r}) = \mu \Psi(\mathbf{r})
+\]
+
+This is the time-independent Gross-Pitaevskii equation.
+\vspace{1cm}\\
+\textbf{(c)} For uniform Bose gas, $\Psi(\mathbf{r})$ doesn't have a spatial dependence, so:
+\[
+\nabla^2 \Psi(\mathbf{r}) = 0
+\]
+Also, there is no trapping potential for a uniform Bose gas. Thus, $V(\mathbf{r}) = 0$. So the G.P.E. becomes:
+\[
+U_0 |\Psi(\mathbf{r})|^2 = \mu
+\]
+%\subsection{Computational Project(Challenge)}
+
+\textbf{(3) [Challenge] Computational project.} \\
+
+The Challenge has been uploaded as a Jupyter notebook
+
+
+\section*{ Prospects and Challenges for Quantum Machine Learning}
+
+\textbf{(a)}[\textbf{Exercise}]
+We have \( Id, X,\cdot\)(dot product).
+
+It's a group if :
+
+
+\textbf{Closure}
+\( \forall a, b \in V \), \( a \cdot b \in V \)
+
+So:
+\[
+Id \cdot X = X \quad \text{and} \quad X \cdot Id = X \quad \text{where} \quad X \in V.
+\]
+
+
+\textbf{Associativity}
+For all \( a, b, c \in V \):
+\[
+(a \cdot b) \cdot c = a \cdot (b \cdot c)
+\]
+
+Example checks for associativity:
+
+
+\textbf{1.)}Given: \( a = Id \), \( b = X \), \( c = Id \)
+
+\[
+\begin{aligned}
+(Id \cdot X) \cdot Id &= X \cdot Id = X \\
+Id \cdot (X \cdot Id) &= Id \cdot X = X
+\end{aligned}
+\quad \} \text{ All are equal}
+\]
+
+
+\textbf{2.)}Given: \( a = Id \), \( b = X \), \( c = X \)
+
+We know:
+\[
+\begin{pmatrix} 
+0 & 1 \\
+1 & 0 
+\end{pmatrix}
+\begin{pmatrix} 
+0 & 1 \\
+1 & 0 
+\end{pmatrix}
+= Id
+\]
+Then:
+\[
+\begin{aligned}
+(Id \cdot X) \cdot X &= X \cdot X = Id \\
+Id \cdot (X \cdot X) &= Id \cdot Id = Id
+\end{aligned}
+\quad \} \text{ Are equal}
+\]
+
+\textbf{3.)}
+Given: \( a = Id \), \( b = Id \), \( c = Id \)
+
+\[
+\begin{aligned}
+(Id \cdot Id) \cdot Id &= Id \cdot Id = Id \\
+Id \cdot (Id \cdot Id) &= Id \cdot Id = Id
+\end{aligned}
+\quad \} \text{ Are equal}
+\]
+
+\textbf{4.)}
+Given: \( a = Id \), \( b = Id \), \( c = X \)
+
+\[
+\begin{aligned}
+(Id \cdot Id) \cdot X &= Id \cdot X = X \\
+Id \cdot (Id \cdot X) &= Id \cdot X = X
+\end{aligned}
+\quad \} \text{ Are equal}
+\]
+
+\textbf{5.)}
+Given: \( a = X \), \( b = X \), \( c = Id \)
+
+\[
+\begin{aligned}
+(X \cdot X) \cdot Id &= Id \cdot Id = Id \\
+X \cdot (X \cdot Id) &= X \cdot X = Id
+\end{aligned}
+\quad \} \text{ Are equal}
+\]
+
+\textbf{6.}
+Given: \( a = X \), \( b = X \), \( c = X \)
+
+\[
+\begin{aligned}
+(X \cdot X) \cdot X &= Id \cdot X = X \\
+X \cdot (X \cdot X) &= X \cdot Id = X
+\end{aligned}
+\quad \} \text{ Are equal}
+\]
+
+\textbf{7.)}
+Given: \( a = X \), \( b = Id \), \( c = Id \)
+
+\[
+\begin{aligned}
+(X \cdot Id) \cdot Id &= X \cdot Id = X \\
+X \cdot (Id \cdot Id) &= X \cdot Id = X
+\end{aligned}
+\quad \} \text{ Are equal}
+\]
+
+\textbf{8.)}
+Given: \( a = Id \), \( b = Id \), \( c = X \)
+
+\[
+\begin{aligned}
+(Id \cdot Id) \cdot X &= Id \cdot X = X \\
+Id \cdot (Id \cdot X) &= Id \cdot X = X
+\end{aligned}
+\quad \} \text{ Are equal}
+\]
+Thus all elements are associative.
+
+
+\textbf{Identity Element}
+For all \( a \in V \), there exists \( e \in V \) called the identity of \( a \), such that:
+\[
+a \cdot e = e \cdot a = a
+\]
+
+\textbf{1.)} If a=Id
+Then:
+\[
+Id \cdot Id = Id.
+\]
+
+\textbf{2.)} If a=X
+Then 
+\[
+X \cdot Id =Id \cdot X=X
+\]
+Thus  \( e=Id \) is the identity element of the group.
+\\
+\textbf{Inverse Element}
+For all \( a \in V \), there exists \( b \in V \) called the inverse of \( a \), such that:
+\[
+a \cdot b = b \cdot a = e
+\]
+where \( e=Id\) is the identity element.
+
+\textbf{1.)} If a=Id
+We assume that \( b = Id \), thus:
+\[
+Id \cdot Id = Id.
+\]
+
+\textbf{2.)} If a=X
+We assume that \( b = X \), thus:
+\[
+X \cdot X = 
+\begin{pmatrix} 
+0 & 1 \\
+1 & 0 
+\end{pmatrix}
+\begin{pmatrix} 
+0 & 1 \\
+1 & 0 
+\end{pmatrix}
+=
+\begin{pmatrix} 
+1 & 0 \\
+0 & 1 
+\end{pmatrix}
+= Id
+\]
+Hence this is a group.
+
+
+\textbf{(b)}[\textbf{Exercise}]
+We have
+
+\[
+U = e^{-i \Phi_3 Y} e^{-i \Phi_2 X} e^{-i \Phi_1 Y}
+\]
+
+\[
+\frac{dU}{d\Phi_1} \Big|_{\Phi=0} = -i Y \, e^{-i \Phi_1 Y} e^{-i \Phi_2 X} e^{-i \Phi_3 Y} \Big|_{\Phi=0}
+\]
+
+where \(\Phi = 0\) \(\rightarrow\) \(\{\Phi_1, \Phi_2, \Phi_3\} = \{0, 0, 0\}\):
+
+\[
+= -i Y
+\]
+
+Similarly:
+
+\[
+\frac{dU}{d\Phi_2} \Big|_{\Phi=0} = -i X
+\]
+
+\[
+\frac{dU}{d\Phi_3} \Big|_{\Phi=0} = -i Y
+\]
+
+Now we have:
+
+\[
+[-i X, -i Y] = -[X, Y]
+\]
+\[
+X = 
+\begin{bmatrix}
+0 & 1 \\
+1 & 0
+\end{bmatrix}, \quad
+Y = 
+\begin{bmatrix}
+0 & -i \\
+i & 0
+\end{bmatrix}
+\]
+
+\[
+XY = 
+\begin{bmatrix}
+i & 0 \\
+0 & -i
+\end{bmatrix}, \quad
+YX = 
+\begin{bmatrix}
+-i & 0 \\
+0 & i
+\end{bmatrix}
+\]
+
+\[
+[X, Y] = 2i 
+\begin{bmatrix}
+1 & 0 \\
+0 & -1
+\end{bmatrix} = 2i Z, \quad
+Z = 
+\begin{bmatrix}
+1 & 0 \\
+0 & -1
+\end{bmatrix}
+\]
+
+\[
+[-i X, -i Y] = 2 (-i Z)
+\]
+
+Let:
+\[
+C_1 = -i X, \quad C_2 = -i Y, \quad C_3 = -i Z
+\]
+
+\[
+[C_1, C_2] = 2 C_3
+\]
+
+Similarly:
+\[
+[C_1, C_3] = -[X, Z]
+\]
+
+\[
+XZ = 
+\begin{bmatrix}
+0 & -1 \\
+1 & 0
+\end{bmatrix}, \quad
+ZX = 
+\begin{bmatrix}
+0 & 1 \\
+-1 & 0
+\end{bmatrix}
+\]
+
+So:
+\[
+[C_1, C_3] = -2 (-i Y) = -2 C_2
+\]
+
+Similarly:
+\[
+[C_2, C_3] = -[Y, Z]
+\]
+
+\[
+YZ = 
+\begin{bmatrix}
+0 & i \\
+i & 0
+\end{bmatrix}, \quad
+ZY = 
+\begin{bmatrix}
+0 & -i \\
+-i & 0
+\end{bmatrix}
+\]
+
+So:
+\[
+[C_2, C_3] = 2(-i X) = 2 C_1
+\]
+
+Thus, the commutation relations are:
+\[
+[C_i , C_j] = 2 \epsilon_{ijk} C_k
+\]
+
+Thus, the generators of \(U\) satisfy the same commutation relations as generators of \(SU(2)\).  
+Hence, group \(U\) is a representation of the \(SU(2)\) group.
+
+
+\textbf{(3)}[\textbf{Challenge}]
+
+For any group \(g\), we have:
+\[
+R(g) \cong \bigoplus_{\lambda} I_{m_\lambda} \otimes R_\lambda(g)
+\]
+
+where \(R_\lambda(g)\) are the irreducible representations of group \(g\) and \(m_\lambda\) is their multiplicity.
+
+An element \(A\) of the commutant is of the form:
+\[
+A \cong  \bigoplus_\lambda A_{m_\lambda} \otimes I_{d_\lambda}
+\]
+
+Here \(d_\lambda\) is the dimension of the irreps,  
+and \(A_{m_\lambda}\) is an arbitrary \(m_\lambda \times m_\lambda\) matrix.
+
+
+For an arbitrary \(m_\lambda \times m_\lambda\) matrix, we have \(m_\lambda^2\) basis vectors.
+
+
+For a matrix given as \(A_{m_\lambda} \otimes I_{d_\lambda}\), we only require \(m_\lambda^2\) basis elements as its basis will be:
+\[
+\left\{ \{\text{basis element of } A_{m_\lambda}\} \otimes I_{d_\lambda} \right\}
+\]
+
+e.g., \(m_\lambda = 2\), \(d_\lambda = 2\), the basis elements are:
+\[
+\left\{
+\begin{bmatrix}
+1 & 0 \\
+0 & 0
+\end{bmatrix} \otimes 
+\begin{bmatrix}
+1 & 0 \\
+0 & 1
+\end{bmatrix}, \quad
+\begin{bmatrix}
+0 & 1 \\
+0 & 0
+\end{bmatrix} \otimes 
+\begin{bmatrix}
+1 & 0 \\
+0 & 1
+\end{bmatrix}, \quad
+\begin{bmatrix}
+0 & 0 \\
+1 & 0
+\end{bmatrix} \otimes 
+\begin{bmatrix}
+1 & 0 \\
+0 & 1
+\end{bmatrix}, \quad
+\begin{bmatrix}
+0 & 0 \\
+0 & 1
+\end{bmatrix} \otimes 
+\begin{bmatrix}
+1 & 0 \\
+0 & 1
+\end{bmatrix}
+\right\}
+\]
+
+Thus, for the element of the commutant \(A\) given as:
+\[
+A = \bigoplus_\lambda A_{m_\lambda} \otimes I_{d_\lambda}
+\]
+
+The number of basis elements or the dimension \(D\) is:
+\[
+D = \sum_\lambda m_\lambda^2.
+\]
+
+
+\section*{High Dimensional Quantum Computing with Structured Light}
+
+\textbf{(1)} [\textbf{Exercise}] First order Hermite-Gauss modes are given as:
+
+\[
+HG_{01}(x, y) = \frac{1}{\omega(z)\sqrt{\pi}} H_0 \left( \frac{\sqrt{2} \, x}{\omega(z)} \right) H_1 \left( \frac{\sqrt{2} \, y}{\omega(z)} \right) 
+e^{-\frac{x^2 + y^2}{\omega^2(z)}} e^{i \left( k \frac{(x^2 + y^2)}{2R(z)} \right)} e^{-i \phi_N(z)}
+\]
+
+\[
+= \frac{\sqrt{2}}{\sqrt{\pi}} \left( \frac{y}{\omega^2(z)} \right) e^{-\frac{x^2 + y^2}{\omega^2(z)}} 
+e^{i \left( k \frac{(x^2 + y^2)}{2R(z)} \right)} e^{-i \phi_N(z)}
+\]
+
+\[
+HG_{10}(x, y) = \frac{1}{\omega(z)\sqrt{\pi}} H_1 \left( \frac{\sqrt{2} \, x}{\omega(z)} \right) H_0 \left( \frac{\sqrt{2} \, y}{\omega(z)} \right) 
+e^{-\frac{x^2 + y^2}{\omega^2(z)}} e^{i \left( k \frac{(x^2 + y^2)}{2R(z)} \right)} e^{-i \phi_N(z)}
+\]
+
+\[
+= \frac{\sqrt{2}}{\sqrt{\pi}} \left( \frac{x}{\omega^2(z)} \right) e^{-\frac{x^2 + y^2}{\omega^2(z)}} 
+e^{i \left( k \frac{(x^2 + y^2)}{2R(z)} \right)} e^{-i\phi_N(z)}
+\]
+
+where $H_0$, $H_1$ are Hermite Polynomials.
+
+Under a counterclockwise rotation, we have:
+
+\[
+x' = \cos \theta \, x + \sin \theta \, y
+\]
+\[
+y' = -\sin \theta \, x + \cos \theta \, y
+\]
+
+\[
+HG_\theta(x,y) = HG_{10}(x', y') = \frac{\sqrt{2}}{\sqrt{\pi}} \left( \frac{x'}{\omega^2(z)} \right) 
+e^{-\frac{x'^2 + y'^2}{\omega^2(z)}} e^{i \left( k \frac{(x'^2 + y'^2)}{2R(z)} \right)} e^{-i \phi_N(z)}
+\]
+
+\[
+x'^2 + y'^2 = \left( x \cos \theta + y \sin \theta \right)^2 + \left( -x \sin \theta + y \cos \theta \right)^2
+\]
+
+\[
+= x^2 \cos^2 \theta + y^2 \sin^2 \theta + 2 \cos \theta \sin \theta \, xy 
++ x^2 \sin^2 \theta + y^2 \cos^2 \theta - 2 \cos \theta \sin \theta \, xy
+\]
+
+\[
+= x^2 + y^2
+\]
+
+Thus, 
+\[
+x'^2 + y'^2 = x^2 + y^2
+\]
+
+\[
+HG_{\theta}(x,y) = \frac{\sqrt{2}}{\sqrt{\pi} \, \omega^2(z)} \left( \cos \theta \, x + \sin \theta \, y \right) 
+e^{-\frac{x^2 + y^2}{\omega^2(z)}} e^{i \left( k \frac{x^2 + y^2}{2 R(z)} \right)} e^{-i \phi_N(z)}
+\]
+
+\[
+= \cos \theta \, HG_{10}(x, y) + \sin \theta \, HG_{01}(x, y)
+\]
+\textbf{(a)}
+\begin{align*}
+\int HG_{\theta}^*(x, y) \, HG_{\theta}(x, y) \, dx \, dy &= 
+\int \Big( \cos^2 \theta \, HG_{10}(x, y)^2 + \sin^2 \theta \, HG_{01}(x, y)^2 \\
+&+ 2 \sin \theta \cos \theta \, HG_{10}(x, y) \, HG_{01}(x, y) \Big) \, dx \, dy
+\end{align*}
+
+\begin{align*}
+\int HG_{01}(x, y) \,& HG_{10}(x, y) \, dx \, dy \\
+&= \frac{1}{\pi \, \omega^2(z)} 
+\left[ \int \left( H_0 \left( \frac{\sqrt{2} \, x}{\omega(z)} \right) \right)^2 
+e^{- \frac{x^2}{\omega^2(z)}} \, dx \int \left( H_1 \left( \frac{\sqrt{2} \, y}{\omega(z)} \right) \right)^2 
+e^{- \frac{y^2}{\omega^2(z)}} \, dy \right]
+\end{align*}
+
+\[
+\frac{\sqrt{2} \, x}{\omega(z)} \rightarrow x \quad \text{and} \quad 
+\frac{\sqrt{2} \, y}{\omega(z)} \rightarrow y
+\]
+
+\[
+dx \rightarrow \frac{\omega(z)}{\sqrt{2}} \, dx \quad \text{and} \quad 
+dy \rightarrow \frac{\omega(z)}{\sqrt{2}} \, dy
+\]
+
+\[
+\int \left( HG_{10}(x, y) \right)^2 \, dx \, dy = \frac{1}{2 \pi} 
+\int H_0(x) \, H_0(x) \, e^{-x^2} \, dx \int H_1(y) \, H_1(y) \, e^{-y^2} \, dy
+\]
+
+Hermite polynomials have the property:
+\[
+\int H_n(x) \, H_m(x) \, e^{-x^2} \, dx = \sqrt{\pi} \, 2^n \, n! \, \delta_{n m}
+\]
+
+Using this, we get:
+\[
+\int \left( H_0(x) \right)^2 e^{-x^2} \, dx = \sqrt{\pi}
+\]
+
+\[
+\int \left( H_1(x) \right)^2 e^{-x^2} \, dx = \sqrt{\pi} \, 2
+\]
+Thus
+\[
+\int \left( HG_{10}(x, y) \right)^2 \, dx \, dy = 1
+\]
+
+Similarly:
+\[
+\int \left( HG_{01}(x, y) \right)^2 \, dx \, dy = 1
+\]
+
+\[
+\int HG_{01}(x, y) \, HG_{10}(x, y) \, dx \, dy = \frac{1}{\pi \, \omega^2(z)} 
+\left[ \int H_0 \left( \frac{\sqrt{2} \, x}{\omega(z)} \right) 
+H_1 \left( \frac{\sqrt{2} \, x}{\omega(z)} \right) 
+e^{- \frac{2 x^2}{\omega^2(z)}} \, dx \right]
+\]
+
+\[
+\times \left[ \int H_1 \left( \frac{\sqrt{2} \, y}{\omega(z)} \right) 
+H_0 \left( \frac{\sqrt{2} \, y}{\omega(z)} \right) 
+e^{- \frac{2 y^2}{\omega^2(z)}} \, dy \right]
+\]
+
+\[
+= \frac{1}{2 \pi} \int H_0(x) \, H_1(x) \, e^{-x^2} \, dx 
+\int H_1(y) \, H_0(y) \, e^{-y^2} \, dy
+\]
+
+\[
+= 0
+\]
+
+Thus:
+\[
+\int HG_{\theta}^*(x, y) \, HG_{\theta}(x, y) \, dx \, dy = \cos^2 \theta + \sin^2 \theta = 1
+\]
+
+\textbf{(b)}
+\[
+\int HG_{\theta}^*(x, y) \, HG_{\theta + \pi/2}(x, y) \, dx \, dy
+\]
+
+\[
+= \int \left( \cos \theta \, HG_{10}(x, y) + \sin \theta \, HG_{01}(x, y) \right)
+\left( -\sin \theta \, HG_{10}(x, y) + \cos \theta \, HG_{01}(x, y) \right) \, dx \, dy
+\]
+
+\begin{align*}
+    = \int \Big[ -\cos \theta \sin \theta \, HG_{10}(x, y)^2 +& \cos^2 \theta \sin^2 \theta \, HG_{01}(x, y)^2 \\
+    &
++ (\cos^2 \theta - \sin^2 \theta) \, HG_{01}(x, y) \, HG_{10}(x, y) \Big] \, dx \, dy
+\end{align*}
+
+
+Using previous results:
+\[
+\int HG_{\theta}^*(x, y) \, HG_{\theta + \pi/2}(x, y) \, dx \, dy= -\cos \theta \sin \theta + \sin \theta \cos \theta = 0
+\]
+
+\textbf{(c)}
+\[
+LG_{0,\pm1}(r,\varphi) = \frac{1}{\sqrt{2\pi} \, \omega(z)} \left( \frac{\sqrt{2} \, (x^2 + y^2)}{\omega(z)} \right) 
+L_0 \left( \frac{2 (x^2 + y^2)}{\omega^2(z)} \right) e^{-\frac{x^2 + y^2}{\omega^2(z)}} e^{i \left( k \frac{x^2 + y^2}{2R(z)} \right)} e^{-i \phi_N(z)} e^{\pm i l \varphi}
+\]
+
+
+
+\[
+= \frac{x^2 + y^2}{\sqrt{\pi} \, \omega(z)} e^{-\frac{x^2 + y^2}{\omega^2(z)}}
+e^{\left( i k \frac{x^2 + y^2}{2R(z)} \right)} e^{-i \phi_0(z)} e^{i \ell \varphi}
+\]
+
+with \(x = r \cos \varphi\) and \(y = r \sin \varphi\), we get:
+
+\[
+= \frac{1}{\sqrt{\pi} \, \omega(z)^2} \left( r \cos \varphi + i r \sin \varphi \right)
+e^{-\frac{x^2 + y^2}{\omega^2(z)}} e^{\left( i k \frac{x^2 + y^2}{2R(z)} \right)} e^{-i \phi_N(z)}
+\]
+
+\[
+= \frac{1}{\sqrt{2}} \left[ \frac{\sqrt{2}}{\sqrt{\pi} \, \omega(z)^2} 
+x \, e^{-\frac{x^2 + y^2}{\omega^2(z)}} e^{\left( i k \frac{x^2 + y^2}{2R(z)} \right)} e^{-i \phi_N(z)} \right.
+\]
+
+\[
+\left. \quad \quad \quad \quad \quad \quad +\frac{\sqrt{2}}{\sqrt{\pi} \, \omega(z)^2} 
+i y \, e^{-\frac{x^2 + y^2}{\omega^2(z)}} e^{\left( i k \frac{x^2 + y^2}{2R(z)} \right)} e^{-i \phi_N(z)} \right]
+\]
+
+\[
+= \frac{HG_{10} \, + \, i \, HG_{01}}{\sqrt{2}}
+\]
+
+\textbf{(2)} [\textbf{Exercise}]:
+\[
+\sum_{n,m=-\infty}^{\infty} u_{n,m}(x, y) \, u_{n,m}^*(x', y')
+= \sum_{n,m} \langle x, y | u_{n,m} \rangle \langle u_{n,m} | x', y' \rangle
+= \langle x, y | \left( \sum_{n,m} | u_{n,m} \rangle \langle u_{n,m} | \right) | x', y' \rangle
+\]
+
+Since \(u_{n,m}\) is a basis set, it is complete.  
+Hence:
+\[
+\sum_{n,m} | u_{n,m} \rangle \langle u_{n,m} | = I
+\]
+
+Thus, we get:
+\[
+\sum_{n,m=-\infty}^{\infty} u_{n,m}(x, y) \, u_{n,m}^*(x', y') = \langle x, y | x', y' \rangle
+\]
+
+\(\{x, y\}\) also form a complete orthogonal basis in \(\mathbb{R}^2\).  
+Thus:
+\[
+\langle x, y | x', y' \rangle = \delta(x - x') \, \delta(y - y')
+\]
+
+Hence:
+\[
+\sum_{n,m} u_{n,m}(x, y) \, u_{n,m}^*(x', y') = \delta(x - x') \, \delta(y - y')
+\]
+
+\textbf{(3)}[\textbf{Challenge}]
+\[
+\Psi_{\theta}(x, y) = HG_{\theta}(x, y) \, \hat{e}_{\theta} + HG_{\frac{\pi}{2}+\theta}(x, y) \, \hat{e}_{\frac{\pi}{2}+\theta}
+\]
+
+\[
+= HG_{\theta}(x, y) \left( \cos \theta \, \hat{e}_H + \sin \theta \, \hat{e}_V \right)
++ HG_{\frac{\pi}{2}+\theta}(x, y) \left( -\sin \theta \, \hat{e}_H + \cos \theta \, \hat{e}_V \right)
+\]
+
+\[
+= \left( \cos \theta \, HG_{\theta}(x, y) - \sin \theta \, HG_{\frac{\pi}{2}+\theta}(x, y) \right) \hat{e}_H 
++ \left( \sin \theta \, HG_{\theta}(x, y) + \cos \theta \, HG_{\frac{\pi}{2}+\theta}(x, y) \right) \hat{e}_V
+\]
+
+\[
+= \left[ \cos \theta \left( \cos \theta \, HG_{10}(x,y) + \sin \theta \, HG_{01}(x,y) \right) 
+- \sin \theta \left( -\sin \theta \, HG_{10}(x,y) + \cos \theta \, HG_{01}(x,y) \right) \right] \hat{e}_H
+\]
+
+\[
++ \left[ \sin \theta \left( \cos \theta \, HG_{10}(x,y) + \sin \theta \, HG_{01}(x,y) \right) 
++ \cos \theta \left( -\sin \theta \, HG_{10}(x,y) + \cos \theta \, HG_{01}(x,y) \right) \right] \hat{e}_V
+\]
+
+\[
+= HG_{10}(x,y) \, \hat{e}_H + HG_{01}(x,y) \, \hat{e}_V
+\]
+
+Hence, it remains invariant under rotation.\\
+
+Similarly:
+
+\[
+\Psi_{\theta}(x, y) = HG_{\theta}(x, y) \, \hat{e}_{\frac{\pi}{2}+\theta} - HG_{\frac{\pi}{2}+\theta}(x, y) \, \hat{e}_{\theta}
+\]
+
+\[
+= \left( \cos \theta \, HG_{10}(x,y) + \sin \theta \, HG_{01}(x,y) \right) \left( -\sin \theta \, \hat{e}_H + \cos \theta \, \hat{e}_V \right)
+\]
+
+\[
+- \left( -\sin \theta \, HG_{10}(x,y) + \cos \theta \, HG_{01}(x,y) \right) \left( \cos \theta \, \hat{e}_H + \sin \theta \, \hat{e}_V \right)
+\]
+
+\[
+= \hat{e}_H \left[ -\sin \theta \cos \theta \, HG_{10}(x,y) - \sin^2 \theta \, HG_{01}(x,y) 
++ \sin \theta \cos \theta \, HG_{10}(x,y) - \cos^2 \theta \, HG_{01}(x,y) \right]
+\]
+
+\[
++ \hat{e}_V \left[ \cos^2 \theta \, HG_{10}(x,y) + \cos \theta \sin \theta \, HG_{01}(x,y) 
++ \sin^2 \theta \, HG_{10}(x,y) - \sin \theta \cos \theta \, HG_{01}(x,y) \right]
+\]
+
+\[
+= -\left( HG_{01}(x,y) \, \hat{e}_H - HG_{10}(x,y) \, \hat{e}_V \right)
+\]
+
+Hence, this is also rotationally invariant up to a global phase.
+
+\textbf{(b)} We have from (a):
+\[
+\Psi(x, y) = HG_{\theta}(x,y) \, \hat{e}_{\theta} + HG_{\frac{\pi}{2}+\theta}(x,y) \, \hat{e}_{\frac{\pi}{2}+\theta}
+\]
+\[
+= HG_{10}(x,y) \, \hat{e}_H + HG_{01}(x,y) \, \hat{e}_V
+\]
+
+\[
+I_H = \int \left| \hat{e}_H^* \cdot \Psi(x, y) \right|^2 \, dx \, dy 
+= \int \left| HG_{10} \right|^2 \, dx \, dy = \int HG_{10}^2 \, dx \, dy = 1
+\]
+
+\[
+I_V = \int \left| \hat{e}_V^* \cdot \Psi(x, y) \right|^2 \, dx \, dy 
+= \int \left| HG_{01} \right|^2 \, dx \, dy = \int HG_{01}^2 \, dx \, dy = 1
+\]
+
+\[
+\hat{e}_H = \frac{\hat{e}_0 + \hat{e}_A}{\sqrt{2}}, \quad 
+\hat{e}_V = \frac{\hat{e}_0 - \hat{e}_A}{\sqrt{2}}
+\]
+
+\[
+\Psi_{\theta}(x, y) = \frac{(HG_{10} + HG_{01})}{\sqrt{2}} \, \hat{e}_0 
++ \frac{(HG_{10} - HG_{01})}{\sqrt{2}} \, \hat{e}_A
+\]
+
+\[
+I_D = \int \left| \frac{HG_{10} + HG_{01}}{\sqrt{2}} \right|^2 \, dx \, dy 
+= \frac{1}{2} \int \left( HG_{10}^2 + HG_{01}^2 + 2 \, HG_{10} \, HG_{01} \right) \, dx \, dy
+\]
+
+\[
+= \frac{1}{2} \left[ 1 + 1 + 0 \right] = 1
+\]
+
+\[
+I_A = \int \left| \frac{HG_{10} - HG_{01}}{\sqrt{2}} \right|^2 \, dx \, dy 
+= \frac{1}{2} \int \left( HG_{10}^2 + HG_{01}^2 - 2 \, HG_{10} \, HG_{01} \right) \, dx \, dy
+\]
+
+\[
+= \frac{1}{2} \left[ 1 + 1 - 0 \right] = 1
+\]
+
+\[
+\hat{e}_H = \frac{\hat{e}_L + i \hat{e}_R}{\sqrt{2}}, \quad 
+\hat{e}_V = \frac{\hat{e}_L - i \hat{e}_R}{\sqrt{2}}
+\]
+
+\[
+\Psi_{\theta}(x, y) = \frac{(HG_{10} + i \, HG_{01})}{\sqrt{2}} \, \hat{e}_L 
++ \frac{(HG_{10} - i \, HG_{01})}{\sqrt{2}} \, \hat{e}_R
+\]
+
+\[
+I_L = \int \left| \frac{HG_{10} + i \, HG_{01}}{\sqrt{2}} \right|^2 \, dx \, dy 
+= \frac{1}{2} \int \left( HG_{10}^2 + HG_{01}^2 \right) \, dx \, dy = 1
+\]
+
+\[
+I_R = \int \left| \frac{HG_{10} - i \, HG_{01}}{\sqrt{2}} \right|^2 \, dx \, dy 
+= \frac{1}{2} \int \left( HG_{10}^2 + HG_{01}^2 \right) \, dx \, dy = 1
+\]
+The polarisation Stokes parameters are thus
+\[
+S_1 = \frac{I_H - I_V}{I_{Tot}} = 0, \quad 
+S_2 = \frac{I_D - I_A}{I_{Tot}} = 0, \quad 
+S_3 = \frac{I_L - I_R}{I_{Tot}} = 0
+\]
+all zero.\\
+
+
+The large detectors are required so the whole beam of light can be covered.  
+Thus, integration over the whole space can be done to use Hermite-Gauss polynomial’s orthogonality properties.\\
+
+
+
+Similarly for:
+\[
+\Psi_{\theta}(x, y) = HG_{\theta}(x, y) \, \hat{e}_{\frac{\pi}{2}+\theta} - HG_{\frac{\pi}{2}+\theta}(x, y) \, \hat{e}_{\theta} 
+\]
+\[
+= -HG_{01} \, \hat{e}_H + HG_{10} \, \hat{e}_V
+\]
+
+Similarly to previous cases:
+\[
+I_H = \int HG_{10}^2 \, dx \, dy = 1, \quad 
+I_V = \int HG_{01}^2 \, dx \, dy = 1
+\]
+
+\[
+I_D = \int \left| \frac{HG_{10} + HG_{01}}{\sqrt{2}} \right|^2 \, dx \, dy = 1, \quad 
+I_A = \int \left| \frac{HG_{10} - HG_{01}}{\sqrt{2}} \right|^2 \, dx \, dy = 1
+\]
+
+\[
+I_L = \int \left| \frac{HG_{10} - i \, HG_{01}}{\sqrt{2}} \right|^2 \, dx \, dy = 1, \quad 
+I_R = \int \left| \frac{HG_{10} + i \, HG_{01}}{\sqrt{2}} \right|^2 \, dx \, dy = 1
+\]
+Thus again we have the polarisation Stokes parameters
+\[
+S_1 = \frac{I_H - I_V}{I_{Tot}} = 0, \quad 
+S_2 = \frac{I_D - I_A}{I_{Tot}} = 0, \quad 
+S_3 = \frac{I_L - I_R}{I_{Tot}} = 0
+\]
+to be zero
+\end{document}
