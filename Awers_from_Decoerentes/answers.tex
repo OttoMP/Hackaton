@@ -1,0 +1,712 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\usepackage{amsmath, amssymb, amsfonts} % Pacotes matemáticos essenciais
+\usepackage{physics} % Notações úteis para física (bra-ket, derivadas, etc.)
+\usepackage{braket} % Notação específica de bra-ket
+\usepackage{graphicx} % Inserção de gráficos e imagens
+\usepackage{float} % Controle de posição de figuras
+\usepackage{enumitem} % Controle de listas e enumerações
+\usepackage{tikz} % Desenho de circuitos e diagramas quânticos
+\usepackage{hyperref} % Links e referências
+\usepackage{xcolor} % Cores para formatação e destaques
+\usepackage{dsfont}
+
+% Configurações de margem
+\geometry{a4paper, margin=1in}
+
+% Cabeçalho personalizado
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{
+\textbf{Hackathon - Second Quantum Computing School, ICTP-SAIFR, SP, Brazil\\
+Decoerentes' team - Alisson, Carlos, Gabriel, Paulo (the others participants dropped the group 
+}
+}
+
+
+% Início do documento
+\begin{document}
+
+\begin{flushleft}
+
+\section*{Bose-Einstein Condensates and the Involvement in Advances for New Technologies.}
+
+\subsection*{(1) [Exercise] Interactions between atoms and the low-energy limit.}
+
+\subsubsection*{a}
+Considering \(l\) the momentum of a particle, it's impact parameter is \(\frac{l}{\hbar k}\). For the low limit energy every particle with positive angular momemtum misses the potencial, which means \(\frac{l}{\hbar k} > R\) for every \(l>0\), so \(1 > R \hbar k\). 
+The \(l=0\) is the most important contribution since it always is affected by the potential.
+
+\subsubsection*{b}
+The s-wave scattering length is the dominant parameter in low-energy two-body interactions, defining an effective range over which over which two particles influence each other.
+
+\subsubsection*{c}
+
+To solve the exercise, we need to find the constant \( U_0 \) for the effective potential \( U_{\text{eff}}(r, r') = U_0 \delta(r - r') \) such that the scattering length \( a \) matches the one calculated using the Born approximation.
+
+
+The scattering length \( a \) is given by:
+\[
+a = \frac{m_r}{2 \pi \hbar^2} \int d^3 r \, U(r)
+\]
+
+
+The effective potential is given by:
+\[
+U_{\text{eff}}(r, r') = U_0 \delta(r - r')
+\]
+This potential acts as a contact interaction, meaning it only has a non-zero value when \( r = r' \).
+
+
+For the effective potential to produce the same scattering length \( a \), we can substitute \( U_{\text{eff}} \) into the scattering length formula. Since \( U_{\text{eff}} \) is a delta function, we have:
+\[
+a = \frac{m_r}{2 \pi \hbar^2} \int d^3 r \, U_{\text{eff}}(r, r) = \frac{m_r}{2 \pi \hbar^2} U_0
+\]
+
+
+Now, we can solve for \( U_0 \) by equating this expression to the given scattering length \( a \):
+\[
+U_0 = \frac{2 \pi \hbar^2 a}{m_r}
+\]
+
+
+
+
+
+
+
+
+\subsection*{(2) [Exercise] The Gross-Pitaevskii equation.}
+
+\subsubsection*{a}
+
+\[
+H = \sum_{i=1}^{N} \left[ \frac{p_{i}^{2}}{2m}  + V(\vec{r}_{i}) \right] + U_0 \sum_{i<j} \delta(\vec{r}_{i} - \vec{r}_{j})
+\]
+
+and 
+
+\[
+\Psi(\vec{r}_{i},.......,\vec{r}_{n}) = \prod_{i=1}^{N} \phi(\vec{r}_{i})
+\]
+
+then
+
+\[
+\langle H \rangle = \int d\vec{r}_{i} ...... d\vec{r}_{N} \prod^{N}_{i-1} \phi(\vec{r}_{i}) \left    \{\sum_{i=1}^{N} \left[ \frac{p_{i}^{2}}{2m}  + V(\vec{r}_{i}) \right] + U_0 \sum_{i<j} \delta(\vec{r}_{i} - \vec{r}_{j}) \right\} \prod_{l=1}^{N} \phi(\vec{r}_{l})
+\]
+
+\[
+\langle H \rangle = \sum^{N}_{i=1} \left( \mathcal{I}_{i} + \mathcal{I'}_{j} \right) + \sum_{j<k} \mathcal{I}_{i,k}
+\]
+
+Now we can consider each term separately
+
+\begin{align*}
+    \tiny
+    \mathcal{I}_{j} &= \int d\vec{r}_{1} ... d\vec{r}_{N} \prod^{N}_{i-1} \phi(\vec{r}_{i}) p_{j}^{2}/2m \phi(\vec{r}_{l}) \\
+    &= \int d\vec{r}_{1} |\phi(\vec{r}_{1})|^{2} \cdot ... \cdot\int d\vec{r}_{j} \phi^{*}(\vec{r}_{j}) \frac{p^{2}_{j}}{2m} \phi(\vec{r}_{j}) \cdot ... \cdot \int d\vec{r}_{N} |\phi(\vec{r}_{N})|^{2} \\
+    &= \int d\vec{r}_{j} \phi^{*}(\vec{r}_{j}) \frac{p^{2}_{j}}{2m} \phi(\vec{r}_{j})\\
+    &= \int d\vec{r}_{j} \phi^{*}(\vec{r}_{j}) \frac{\hbar^{2}\nabla^{2}_{j}}{2m} \phi(\vec{r}_{j})
+\end{align*}
+
+Analogously we have that 
+
+\begin{align*}
+    \mathcal{I'}_{j} &= \int_{N} d\vec{r}_{1} ... d\vec{r}_{n} \prod^{N}_{i} \phi^{*}(\vec{r}_{i}) V(\vec{r}_{j}) \phi(\vec{r}_{i})\\
+    &= \int_{N} d\vec{r}_{j} V(\vec{r}_{j}) |\phi(\vec{r}_{j})|^{2} \\
+\end{align*}
+
+Now, for the last term
+
+\begin{align*}
+    \mathcal{I''}_{j,k} &= \int d\vec{r}_{1} ... d\vec{r}_{n} \prod_{i,l} \phi^{*}(\vec{r}_{i}) U_0 \delta(\vec{r}_{i}  -\vec{r}_{k}) \phi(\vec{r}_{l})\\
+    &= U_0 \int d\vec{r}_{j} d\vec{r}_{k} \phi^{*}(\vec{r}_{j}) \phi^{*}(\vec{r}_{k})  \delta(\vec{r}_{i} -\vec{r}_{k}) \phi(\vec{r}_{j}) \phi(\vec{r}_{k}) \\ &= U_0 \int d\vec{r}_{j} \phi^{*}(\vec{r}_{j}) \phi^{*}(\vec{r}_{j}) \phi(\vec{r}_{j}) \phi(\vec{r}_{j}) \\
+    &= U_0 \int d \vec{r}_{j} |\phi(\vec{r}_{j})|^{4}
+\end{align*}
+
+than
+
+\begin{align*}
+    \langle H \rangle &= \sum_{j=1}^{N} d\vec{r}_{j} \phi^{*}(\vec{r}_{j}) \left[ \frac{p_{i}^{2}}{2m}  + V(\vec{r}_{i}) \right] + \sum_{k<j} \int \vec{r}_{j} |\phi(\vec{r}_{j})|^{4} \\ 
+    &= \sum_{j=1}^{N} d\vec{r}_{j} \phi^{*}(\vec{r}_{j}) \left[ \frac{p_{i}^{2}}{2m}  + V(\vec{r}_{i}) + (j-1) |\phi(\vec{r}_{j})|^{2} \right] \phi(\vec{r}_{j})
+\end{align*}
+
+\subsection*{b}
+We have that
+\[
+E[\Psi] = \int \int \int d V \left[ \frac{\hbar^{2}}{2m} \abs{\nabla \Psi(\Vec{r})}^{2} + V(\vec{r}) |\Psi(\Vec{r})|^2 + \frac{1}{2} u_{0} |\Psi(\Vec{r})|^4 - \right]
+\]
+
+and also:
+
+\[
+\mathcal{N}[\Psi] = \int \int \int dV \abs{\Psi(\Vec{r})}^{2} \]
+
+let $\mu$ being de chemical potential, hence:
+
+\[
+\delta E - \mu \delta \mathcal{N} = 0 \boldsymbol{{\leftrightarrow}} \delta \int \int \int d^3 V \left[ \frac{\hbar^{2}}{2m} \abs{\nabla \Psi(\Vec{r})}^{2} + V(\vec{r}) |\Psi(\Vec{r})|^2 + \frac{1}{2} u_{0} |\Psi(\Vec{r})|^4 - \mu \abs{\Psi(\Vec{r})}^{2} \right] = 0
+ \]
+
+ let's take:
+
+ \[
+ \overline{\Psi_{\alpha}}(\Vec{r}) = \overline{\Psi}(\Vec{r}) + \alpha \eta(\vec{r}),
+ \]
+
+where $\overline{\Psi}(\Vec{r})$ stands for the optimal function and $\eta(\vec{r})$ is smoth and vanishes in the boundary of the integrating region, therefore; defining $\mathbf{\mathcal{I}}(\Psi, \partial_{x}\Psi,
+\partial_{y}\Psi, \partial_{z}\Psi, x, y,  z)$ as the integrating function: 
+
+
+\[
+0 = \frac{d}{d\alpha} (E - \mu \mathcal{N}) = \int \int \int dV [\partial_{\alpha}\overline{\Psi_{\alpha}} \hspace{0.25cm}\partial\overline{\Psi_{\alpha}} + \sum_{u = x,y,z} \partial_{\alpha}(\partial_{u} \overline\Psi_{\alpha})\partial_{\partial_{u}\overline{\Psi}_{\alpha}}]\mathbf{\mathcal{I}},
+\]
+
+since
+
+\[
+\int du \hspace{0.25cm} \partial_{\partial_{u}\overline{\Psi}_{\alpha}} \hspace{0.25cm} \mathbf{\mathcal{I}} \hspace{0.25cm} \partial_{
+\alpha}(\partial_{u} \overline{\Psi}_{\alpha}) = - \int du \hspace{0.25cm} \partial_{u}(\partial_{\partial_{u}\overline{\Psi}_{\alpha}} \hspace{0.25cm} \mathbf{\mathcal{I}}) \hspace{0.25cm} \partial_{\alpha} \overline{\Psi}_{\alpha},
+\]
+
+which is obtained by integration by parts, we could write the minization criteria as:
+
+\[
+0 = \int \int \int dV [\partial_{\alpha} \overline{\Psi}_{\alpha} \partial_{\overline{\Psi_{\alpha}}} \hspace{0.25cm} \mathbf{\mathcal{I}} \hspace{0.25cm} - \sum_{u = x,y,z} \partial_{u} (\partial_{\partial_{u}\overline{\Psi}_{\alpha}}\mathbf{\mathcal{I}})\partial_{\alpha}\overline{\Psi}_{\alpha}]
+\]
+\[ = 
+\int \int \int dV [\eta(\vec{r})\partial_{\overline{\Psi_{\alpha}}} \hspace{0.25cm} \mathbf{\mathcal{I}} \hspace{0.25cm} - \sum_{u = x,y,z} \partial_{u} (\partial_{\partial_{u}\overline{\Psi}_{\alpha}}\mathbf{\mathcal{I}})\eta({\vec{r}})]
+\]
+
+\[ = 
+\int \int \int dV [\partial_{\overline{\Psi_{\alpha}}} \hspace{0.25cm} \mathbf{\mathcal{I}} \hspace{0.25cm} - \sum_{u = x,y,z} \partial_{u} (\partial_{\partial_{u}\overline{\Psi}_{\alpha}}\mathbf{\mathcal{I}})] \eta(\vec{r})
+\]
+by the arbitraryness of $\eta(\vec{r})$, we could ensure the minimization criteria as:
+
+\[
+[\partial_{\overline{\Psi}} - \partial_{x} (\partial_{\partial_{x}\overline{\Psi}^{*}})  - \partial_{y} (\partial_{\partial_{y}\overline{\Psi}^{*}})  - \partial_{y} (\partial_{\partial_{y}\overline{\Psi}^{*}})]\mathbf{\mathcal{I}} = 0
+\]
+
+evaluating:
+
+\[
+\partial_{\overline{\Psi}} \mathbf{\mathcal{I}} = \partial_{\overline{\Psi}} [\frac{\hbar^{2}}{2m} \abs{\nabla \Psi(\vec{r})}^{2} + V(\vec(r) \Psi \overline{\Psi} + \frac{1}{2} u_{0} \Psi \overline{\Psi} \Psi \overline{\Psi} - \mu \Psi \overline{\Psi} ]
+\]
+\[
+= V(\vec{r}) \Psi + u_{0} \Psi \overline{\Psi} \Psi - \mu \Psi
+\]
+\[
+= V(\vec{r})\Psi + u_{0} \abs{\Psi}^{2}\Psi - \mu \Psi
+\]
+\[
+\partial_{u} \partial_{\partial_{u}\overline{\Psi}}\mathbf{\mathcal{I}} = \partial_{u} \left\{ \partial_{\partial_{u}\overline{\Psi}}\left[\frac{\hbar^{2}}{2m}(\partial_{x}\Psi \partial_{x}\overline{\Psi} + \partial_{y}\Psi \partial_{y}\overline{\Psi} + \partial_{z}\Psi \partial_{z}\overline{\Psi} + ....)\right]\right\}
+\]
+\[
+= \partial_{u} \left(\frac{\hbar^{2}}{2m} \partial_{u} \Psi \right)
+\]
+\[
+= \frac{\hbar^{2}}{2m} \partial_{u}^{2} \Psi.
+\]
+
+Finally, resulting in the time-independent GPE:
+\[
+(V(\vec{r} + u_{0} \abs{\Psi}^{2} - \mu)\Psi - \frac{\hbar^{2}}{2m} \partial_{x}^{2} - \frac{\hbar^{2}}{2m} \partial_{y}^{2} - \frac{\hbar^{2}}{2m} \partial_{z}^{2} = 0
+\]
+
+\[
+(V(\vec{r} + u_{0} \abs{\Psi}^{2} - \mu)\Psi - \frac{\hbar^{2}}{2m} \nabla^{2} \Psi = 0
+\]
+
+
+\subsubsection*{c}
+By Thomas-Fermi approximation, \(\frac{- \hbar^{2} \nabla^{2}}{2m} \approx 0 \) we have
+
+\[
+\mu \Psi(\vec{r}) = \left[ \left( \frac{- \hbar^{2} \nabla^{2}}{2m} \right) V(\vec{r}) + u_0 |\Psi|^{2} \right] \Psi(\vec(r)),
+\]
+\[
+\mu =  V(\vec{r}) + u_0 |\Psi|^{2}
+\]
+
+So \(V(\vec{r}) = \mu - u_0 |\Psi|^{2}\), so in the region where \( | \Psi |^{2}\) is uniform   \( | \Psi |^{2} = \mathcal{P}_0\), so:
+
+\[
+V(\vec{r}) = \mu - u_0 \mathcal{P}_0,
+\]
+
+in such way that:
+\[
+i \hbar \partial_{t} \Psi = \left[ \frac{- \hbar^{2} \nabla^{2}}{20} + (\mu - u_0 \mathcal{P}_0) + u_0 | \Psi|^{2}  \right] \Psi(\vec{r})
+\]
+
+
+
+
+
+\section*{Prospects and Challenges for Quantum Machine Learning.}
+
+\subsection*{(1) [Exercise] Let \( V = \mathbb{C}^2 \) be the Hilbert space of a single qubit. Then, consider the set of objects \( \{\mathds{1}
+, X\} \), where \( \mathds{1} \) is the \( 2 \times 2 \) identity matrix and \( X \) the Pauli-X matrix. Show that these objects, which represent bit-flips, form a group.
+.}
+
+
+\textbf{Step 1: Definition of the matrices}
+
+- The \( 2 \times 2 \) identity matrix \( 1 \) is:
+\[
+\mathds{1}
+ = \begin{pmatrix}
+1 & 0 \\
+0 & 1
+\end{pmatrix}
+\]
+- The Pauli-X matrix \( X \) is:
+\[
+X = \begin{pmatrix}
+0 & 1 \\
+1 & 0
+\end{pmatrix}
+\]
+
+\textbf{Step 2: Proving Closure}
+
+
+We need to check if the product of any two elements in \( \{1, X\} \) is still in \( \{1, X\} \):
+\[
+\mathds{1}
+ \cdot \mathds{1} = \mathds{1}
+\]
+\[
+\mathds{1}
+ \cdot X = X
+\]
+\[
+X \cdot \mathds{1}
+ = X
+\]
+\[
+X \cdot X = \mathds{1}
+\]
+Since the result of any multiplication is either \( 1 \) or \( X \), the set is closed under matrix multiplication.
+
+\textbf{Step 3: Proving Associativity}
+
+
+Matrix multiplication is known to be associative for all matrices of the same dimensions. Since both \( 1 \) and \( X \) are \( 2 \times 2 \) matrices, it follows that for any \( A, B, C \in \{1, X\} \), we have:
+\[
+A \cdot (B \cdot C) = (A \cdot B) \cdot C
+\]
+
+Therefore, the associativity axiom is satisfied for all elements in \( \{\mathds{1}, X\} \) without needing to check individual cases.
+
+
+\textbf{Step 4: Identity element}
+\[
+\mathds{1} \cdot \mathds{1} = \mathds{1}
+\]
+\[
+\mathds{1} \cdot X = X
+\]
+\[
+X \cdot \mathds{1} = X
+\]
+
+Thus, \( \mathds{1} \) is the identity element.
+
+\textbf{Step 5: Inverse}
+
+An inverse of an element \( A \) in a group is an element \( A^{-1} \) such that \( A \cdot A^{-1} = A^{-1} \cdot A = \mathds{1} \).
+\[
+\mathds{1} \cdot \mathds{1} = \mathds{1}
+\]
+\[
+X \cdot X = \mathds{1}
+\]
+
+Therefore, \( \mathds{1} \) is its own inverse, and \( X \) is also its own inverse.
+
+\textbf{Conclusion}
+
+Since the set \( \{\mathds{1}, X\} \) satisfies the closure, associativity, identity, and inverse axioms, as seen in steps 1, 2, 3, 4 and 5; it forms a group. 
+
+
+\subsection*{(2) [Exercise] Prove that the set of all unitaries of the form
+\[
+U = e^{-i\phi_3 Y} e^{-i\phi_2 X} e^{-i\phi_1 Y}
+\]
+constitutes a representation of the unitary Lie group \( SU(2) \).}
+
+
+For any Pauli matrix \( \sigma_{j}^{2} = \mathds{1}\), then \( \sigma_{j}^{2k} = \mathds{1}\), with \( k \in \mathds{N}\), \(\sigma_{j}^{2k+1} = \sigma_{j} \) hence:
+
+\[
+e^{i \alpha \sigma_{j}} = \sum^{\infty}_{n=0} \frac{(i \alpha \sigma_{j})^{n}}{n!} = \sum^{\infty}_{n=0} \frac{(i \alpha \sigma_{j})^{2n}}{2n!} + \sum^{\infty}_{n=0} \frac{(i \alpha \sigma_{j})^{2n+1}}{(2n+1)!} 
+\]
+
+\[
+e^{i \alpha \sigma_{j}} =\sum^{\infty}_{n=0} \frac{i^{2n} \alpha ^{2n}}{2n!} + i \sigma_{j} \sum^{\infty}_{n=0} \frac{i^{2n} \alpha^{2n+1}}{(2n+1)!}
+\]
+
+\[
+e^{i \alpha \sigma_{j}} = \sum^{\infty}_{n=0} \frac{(-1)^{n} \alpha ^{2n}}{2n!} + i \sigma_{j} \sum^{\infty}_{n=0} \frac{(-1)^{n} \alpha^{2n+1}}{(2n+1)!}
+\]
+
+\[
+e^{i \alpha \sigma_{j}} = \cos{\alpha} + i \sigma_{j} \sin{\alpha} ,
+\]
+
+hence
+
+
+\[
+U = e^{-i\phi_3 Y} e^{-i\phi_2 X} e^{-i\phi_1 Y} = \left(\cos{\phi_{3}} - i Y\sin{\phi_{3}}\right)\left(\cos{\phi_{2}} - i X\sin{\phi_{2}}\right) \left(\cos{\phi_{1}} - i Y\sin{\phi_{1}}\right)
+\]
+
+
+\begin{align*}
+    U &= \cos{\phi_{1}}\cos{\phi_{2}}\cos{\phi_{3}} \cdot \mathds{1} \\
+    &-iY\left(\sin{\phi_{3}}\cos{\phi_{2}}\cos{\phi_{1}} + \cos{\phi_{3}}\cos{\phi_{2}}\sin{\phi_{1}}    \right) \\
+    &-iX \left(\cos{\phi_{3}}\sin{\phi_{2}}\cos{\phi_{1}}\right) \\
+    &+i YXY \left(\sin{\phi_{3}}\sin{\phi_{2}}\sin{\phi_{1}}\right) \\
+    &-Y^{2} \left(\sin{\phi_{3}}\cos{\phi_{2}}\sin{\phi_{1}}\right) \\
+    &-YX \left(\sin{\phi_{3}}\sin{\phi_{2}}\cos{\phi_{1}}\right) \\
+    &-XY \left(\cos{\phi_{3}}\sin{\phi_{2}}\sin{\phi_{1}}\right) \\
+\end{align*}
+
+now using that  \(YXY = -X\), \(XY = iZ = -YX\) we have
+
+\begin{align*}
+    U &= \mathds{1} \cos{\phi_{2}}\left(\cos{\phi_{3}\cos{\phi_{1}}} - \sin{\phi_{3}}\sin{\phi_{1}} \right)  \\
+    &-iY\cos{\phi_{2}}\left(\sin{\phi_{3}\cos{\phi_{1}}} + \cos{\phi_{3}}\sin{\phi_{1}} \right) \\
+    &-iX \sin{\phi_{2}}\left(\cos{\phi_{3}\cos{\phi_{1}}} + \sin{\phi_{3}}\sin{\phi_{1}} \right)  \\
+    &-iZ \sin{\phi_{2}}\left(\cos{\phi_{3}\sin{\phi_{1}}} - \sin{\phi_{3}}\cos{\phi_{1}} \right)  \\
+\end{align*}
+
+Now, using the expression of \(\sin{a \pm b}\) anda \(\cos{a \pm b}\):
+
+
+\begin{align*}
+    U &= \mathds{1} \cos{\phi_{2}}\cos{(\phi_{3} + \phi_{1})}  \\
+    &-iY\cos{\phi_{2}}\sin{(\phi_{3} + \phi_{1})} \\
+    &-iX \sin{\phi_{2}}\cos{(\phi_{1} - \phi_{3})} \\
+    &-iZ \sin{\phi_{2}}\sin{(\phi_{1} - \phi_{3})}\\
+\end{align*}
+
+Which proves that for the right choice of \( \phi_{1} , \phi_{2}, \phi{3}\), $U$ generate any element of $SU(2)$ since if \(A \in SU(2)\) then exist $(a,b,c,d)$ real such that \(a^2+b^2+c^2+d^2=1\)and \(A = a \mathds{I} + i(bX + cY + dZ)\).
+
+For the unitary matrix U, \(a = \cos{\phi_{2}}\cos{(\phi_{1}+\phi_{3})}\), \(b = \cos{\phi_{2}}\sin{(\phi_{1}+\phi_{3})}\), \(c = \sin{\phi_{2}}\cos{(\phi_{1}-\phi_{3})}\), \(d = \sin{\phi_{2}}\sin{(\phi_{1}-\phi_{3})}\)
+
+so, it's easy to see that
+
+\begin{align*}
+    a^2+b^2+c^2+d^2 &= \cos^{2}{\phi_{2}} \cos^{2}{(\phi_{1}+\phi_{3})} +  \\
+    &\cos^{2}{\phi_{2}} \sin^{2}{(\phi_{1}+\phi_{3})} + \\
+    &\sin^{2}{\phi_{2}} \cos^{2}{(\phi_{1}+\phi_{3})} + \\
+    &\sin^{2}{\phi_{2}} \sin^{2}{(\phi_{1}+\phi_{3})}=1\\
+\end{align*}
+
+solving that the four parameters satisfies the constraint, representating 3 free parameters
+
+
+
+\subsection*{(3) [Exercise] Show that the dimension D of the commutant $C(k)(G)$, outlined in Definition 8 of the lecture notes, is determined by $D = \sum_\lambda m_\lambda^2$.}
+
+Suppose the representation associated with the commutant ( R(\mathbf{g}) ) is completely reducible, then we may write:
+
+\[
+R(\mathbf{g}) \simeq \bigoplus_\lambda I_{m_\lambda} \otimes R_\lambda(\mathbf{g})
+\]
+
+for ( $R_\lambda$ ), an irreducible representation, with ($m_\lambda$) its multiplicity, and ($ I_{m_\lambda} $) being the identity matrix of size ( $m_\lambda \times m_\lambda$ ).
+
+Now, for ($d_\lambda = \dim(R_\lambda(\mathbf{g}))$ ), the elements in the commutant must be of the form:
+
+\[
+A = \bigoplus_\lambda A_\lambda \otimes I_{d_\lambda}
+\]
+
+for an arbitrary ( $m_\lambda \times m_\lambda$ ) matrix ( $A_\lambda$ ) (which commutes with ( $I_{d_\lambda} )$). Then we have ( $m_\lambda^2$ ) degrees of freedom to choose each ( $A_\lambda$ ), so the degrees of freedom in ( $A$ ) are the sum of all of them. Thus,
+
+\[
+D = \sum_\lambda m_\lambda^2.
+\]
+
+\section*{High Dimensional Quantum Communication with Structured
+Light.}
+
+\subsection*{(1) [Exercise] Let $HG_\theta(x, y)$ be the first order Hermite-Gauss mode rotated counter-
+clockwise by $\theta$. Show that.}
+
+By definition
+\[
+    HG_{l,m}(x, y) = \sqrt{\frac{2}{\pi w_0^22^{l + m}l!m!}}\mathrm{H}_l(\frac{\sqrt{2}}{w_0}x)\mathrm{H}_m(\frac{\sqrt{2}}{w_0}y)\exp\left[-(r / w_0) ^ 2\right]
+\]
+which is an orthonormal basis, due to the orthogonality of hermite polynomials. Therefore
+\[
+    HG_{1,0}(x, y) = \sqrt{\frac{1}{\pi w_0^2}}\mathrm{H}_1(\frac{\sqrt{2}}{w_0}x)\mathrm{H}_0(\frac{\sqrt{2}}{w_0}y)\exp\left[-(r / w_0) ^ 2\right]
+\]
+\[
+    HG_{0,1}(x, y) = \sqrt{\frac{1}{\pi w_0^2}}\mathrm{H}_0(\frac{\sqrt{2}}{w_0}x)\mathrm{H}_1(\frac{\sqrt{2}}{w_0}y)\exp\left[-(r / w_0) ^ 2\right]
+\]
+where $\mathrm{H}_0(u) = 1$ and $\mathrm{H}_1(u) = 2u$.
+
+\subsection*{a. $HG_\theta(x, y) = cos\theta HG_{1,0}(x, y) + sin\theta HG_{0,1}(x, y)$}
+
+by the definition
+
+\[
+    HG_\theta(x, y) = HG_{1,0}(x cos\theta + y sin\theta, y cos\theta - x sin\theta)
+\]
+
+thus
+
+\begin{align*}
+    HG_\theta(x, y) &= \sqrt{\frac{1}{\pi w_0^2}}\mathrm{H}_1(\frac{\sqrt{2}}{w_0}x cos\theta + y sin\theta)\mathrm{H}_0(\frac{\sqrt{2}}{w_0}y cos\theta - x sin\theta)\exp\left[-(r / w_0) ^ 2\right]\\
+    &= \sqrt{\frac{1}{\pi w_0^2}}2(\frac{\sqrt{2}}{w_0}(x cos\theta + y sin\theta))\exp\left[-(r / w_0) ^ 2\right]\\
+    &= cos\theta \sqrt{\frac{1}{\pi w_0^2}}2(\frac{\sqrt{2}}{w_0}x)\exp\left[-(r / w_0) ^ 2\right] +  sin\theta\sqrt{\frac{1}{\pi w_0^2}}2(\frac{\sqrt{2}}{w_0}y)\exp\left[-(r / w_0) ^ 2\right]\\
+    &= cos\theta HG_{1,0}(x, y) +  sin\theta HG_{0,1}(x, y)\\
+\end{align*}
+
+\subsection*{b. $\int dxdy HG^*_\theta(x, y)HG_\theta(x, y) = 1$}
+
+\begin{align*}
+    \int dxdy HG^*_\theta(x, y)HG_\theta(x, y) = \int dxdy& \left[cos\theta HG^*_{1,0}(x, y) +  sin\theta HG^*_{0,1}(x, y)\right]\times\\&\left[cos\theta HG_{1,0}(x, y) + sin\theta HG_{0,1}(x, y)\right]\\
+    = \int dxdy& cos\theta cos\theta HG^*_{1,0}(x, y)HG_{1,0}(x, y)  +\\
+    &sin\theta cos\theta HG^*_{0,1}(x, y)HG_{1,0}(x, y) +\\
+    &cos\theta sin\theta HG^*_{1,0}(x, y)HG_{0,1}(x, y) + \\
+    &sin\theta sin\theta HG^*_{0,1}(x, y)HG_{0,1}(x, y)\\
+\end{align*}
+
+by the orthonormality of HG modes
+
+\[
+    \int dxdy HG^*_\theta(x, y)HG_\theta(x, y) = cos^2 \theta + sin^2 \theta = 1
+\]
+
+\subsection*{c. $\int dxdy HG^*_\theta(x, y)HG_{\theta + \pi/2}(x, y) = 0$}
+
+\begin{align*}
+    \int dxdy HG^*_\theta(x, y)HG_{\theta + \pi/2}(x, y) = \int dxdy& \left[cos\theta HG^*_{1,0}(x, y) +  sin\theta HG^*_{0,1}(x, y)\right]\times\\&\left[-sin(\theta) HG_{1,0}(x, y) + cos(\theta) HG_{0,1}(x, y)\right]\\
+    = \int dxdy& -cos\theta sin(\theta) HG^*_{1,0}(x, y)HG_{1,0}(x, y)  +\\
+    &-sin\theta sin(\theta) HG^*_{0,1}(x, y)HG_{1,0}(x, y) +\\
+    &cos\theta cos(\theta) HG^*_{1,0}(x, y)HG_{0,1}(x, y) + \\
+    &sin\theta cos(\theta) HG^*_{0,1}(x, y)HG_{0,1}(x, y)\\
+\end{align*}
+
+by the orthonormality of HG modes
+
+\[
+    \int dxdy HG^*_\theta(x, y)HG_\theta(x, y) = -cos\theta sin(\theta) + sin\theta cos(\theta)  = 0
+\]
+
+\subsection*{d. $LG_{\pm}(x, y) = \frac{1}{\sqrt{2}}(HG_{1,0}(x, y) \pm \jmath HG_{0,1}(x, y))$}
+
+by the definition
+
+\[
+    LG_\pm(r, \phi) = \sqrt{\frac{2}{\pi w_0^2}}\frac{\sqrt{2}}{w_0}r\exp\left[-(r / w_0) ^ 2\right]\exp(\pm\jmath\phi)
+\]
+
+since $r\exp(\pm\jmath\phi) = r cos \phi \pm \jmath r sin\phi = x \pm \jmath y$
+
+\begin{align*}
+    LG_\pm(r, \phi) &= \sqrt{\frac{1}{\pi w_0^2}}\frac{2}{w_0}\exp\left[-(r / w_0) ^ 2\right](x \pm \jmath y)\\
+    &= \frac{1}{\sqrt{2}}\left[\sqrt{\frac{1}{\pi w_0^2}}2\frac{\sqrt{2}}{w_0}x\exp\left[-(r / w_0) ^ 2\right] \pm \jmath \sqrt{\frac{1}{\pi w_0^2}}2\frac{\sqrt{2}}{w_0}y\exp\left[-(r / w_0) ^ 2\right])\right]\\
+    &= \frac{1}{\sqrt{2}}\left[HG_{1,0}(x, y) \pm \jmath HG_{0,1}(x, y))\right]\\
+\end{align*}
+
+\subsection*{(2) [Exercise] Let \( u_{nm}(x, y) \) be a basis set of the square integrable functions in \( \mathbb{R}^2 \). Show that
+ \[
+    \sum_{n,m=0}^{\infty} u_{nm}(x, y) u_{nm}^*(x', y') = \delta(x - x') \delta(y - y').
+    \tag{19}
+    \]
+    \(H_{int}\): Use bra-ket notation to write \( u_{n,m}(x, y) = \langle x, y | u_{n,m} \rangle \).}
+
+
+Since \( U_{n,m}(X,Y) = \langle X,Y | U_{n,m} \rangle \) form a basis set for the square-integrable functions, \( |U_{n,m}\rangle \) is also a basis in an abstract Hilbert space where \( \langle X,Y | \) represents functionals acting on such space, and we have that:
+\[
+\sum_{n,m=0}^{\infty} | U_{n,m} \rangle \langle U_{n,m} | = 1
+\]
+is the identity of the Hilbert space.
+
+Thus,
+\[
+\sum_{n,m=0}^{\infty} U_{n,m}(X,Y) U_{n,m}^*(X',Y') = \sum_{n,m=0}^{\infty} \langle X,Y | U_{n,m} \rangle \langle U_{n,m} | X',Y' \rangle
+\]
+\[
+= \langle X,Y | \left( \sum_{n,m=0}^{\infty} | U_{n,m} \rangle \langle U_{n,m} | \right) | X',Y' \rangle
+\]
+\[
+= \langle X,Y | X',Y' \rangle = \langle X | X' \rangle \langle Y | Y' \rangle
+\]
+\[
+=\delta(X-X') \delta(Y-Y')
+\]
+
+\subsection*{(3) [Exercise]Consider the linear polarization unit vectors rotated counter-clockwise by $\theta$.}
+
+\subsection*{a.}
+
+Applying trigonometric identities
+
+\[
+    \hat{e}_{\theta+\pi/2} = -sin\theta \hat{e}_H + cos\theta \hat{e}_V
+\]
+\[
+    HG_{\theta+\pi/2}(x,y) = -sin\theta HG_{10}(x,y) + cos\theta HG_{01}(x,y)
+\]
+
+
+\textbf{First relation.}\\
+Evaluating
+
+    \begin{align*}
+     HG_{\theta}(x,y)\hat{e}_{\theta}=&\\
+        &\cos(\theta)^2HG_{10}(x,y)\hat{e}_{H}+\\
+        &\sin{\theta}\cos{\theta}(HG_{10}(x,y)\hat{e}_{V}(x,y)+HG_{01}(x,y)\hat{e}_{H})+\\
+        &\sin(\theta)^2HG_{01}(x,y)\hat{e}_{V}
+    \end{align*}
+
+     \begin{align*}
+         HG_{\theta+\pi/2}(x,y)\hat{e}_{\theta+\pi/2}=&\\
+            &\sin(\theta)^2HG_{10}(x,y)\hat{e}_{H} -\\
+            &\sin{\theta}\cos{\theta}(HG_{10}(x,y)\hat{e}_{V}(x,y)+HG_{01}(x,y)\hat{e}_{H})+\\
+            &\cos(\theta)^2HG_{01}(x,y)\hat{e}_{V}
+    \end{align*}
+
+    summing both equations we have that
+
+    \begin{align*}
+         HG_{\theta}(x,y)\hat{e}_{\theta}+HG_{\theta+\pi/2}(x,y)\hat{e}_{\theta+\pi/2}=&\ (\cos(\theta)^2+\sin(\theta)^2)(HG_{10}\hat{e}_{H}+HG_{01}(x,y)\hat{e}_{V})\\
+         =&\ HG_{10}\hat{e}_{H}+HG_{01}(x,y)\hat{e}_{V}
+    \end{align*}
+
+\textbf{Conclusion.} both fields are independent of $\theta$.
+
+\subsection*{b.} We are given two vector fields involving Hermite-Gaussian (HG) modes and their corresponding polarization vectors. We will compute the Stokes parameters \( S_1, S_2, S_3 \) and demonstrate that they are all zero when integrated over a large area detector.
+
+\textbf{First Field:}
+
+The first field is given by:
+\[
+\psi(x,y) = HG_{\theta}(x, y) \hat{e}{\theta} + HG{\theta + \pi/2}(x, y) \hat{e}{\theta + \pi/2} = HG{10}(x, y) \hat{e}H + HG{01}(x, y) \hat{e}_V
+\]
+
+The Hermite-Gaussian modes \( HG_{10}(x, y) \) and \( HG_{01}(x, y) \) correspond to the horizontal and vertical polarization directions, respectively. We proceed to compute the Stokes parameters:
+
+\textbf{1. First Stokes Parameter \( S_1 \):}
+
+The first Stokes parameter measures the difference in intensity between the horizontal and vertical components of the field:
+\[
+S_1 = \langle |\psi_x|^2 \rangle - \langle |\psi_y|^2 \rangle
+\]
+where \( \psi_x = HG_{10}(x, y) \) and \( \psi_y = HG_{01}(x, y) \). The corresponding integrals are:
+\begin{equation}
+    \begin{split}
+    S_1 &= \int HG_{10}^(x, y) HG_{10}(x, y) \, dxdy - \int HG_{01}^(x, y) HG_{01}(x, y) \, dxdy \\
+    &= 1 - 1 \\
+    &= 0
+    \end{split}
+\end{equation}
+Since the modes \( HG_{10} \) and \( HG_{01} \) are normalized, their integrals over the entire space both equal 1, leading to \( S_1 = 0 \).
+
+\textbf{2. Second and Third Stokes Parameters \( S_2 \) and \( S_3 \):}
+
+Next, we compute the cross-term \( \langle \psi_x^* \psi_y \rangle \), which will determine the values of \( S_2 \) and \( S_3 \):
+\[
+\langle \psi_x^* \psi_y \rangle = \int HG_{10}^*(x, y) HG_{01}(x, y) \, dxdy
+\]
+By the orthogonality of the Hermite-Gaussian modes, this integral vanishes:
+\[
+\int HG_{10}^*(x, y) HG_{01}(x, y) \, dxdy = 0
+\]
+Thus, both \( S_2 \) and \( S_3 \) are zero:
+\[
+S_2 = 2 \text{Re}(0) = 0 \quad \text{and} \quad S_3 = 2 \text{Im}(0) = 0
+\]
+
+\textbf{Second Field:}
+
+For the second field, the roles of the modes and polarization vectors are swapped:
+\[
+\psi(x, y) = HG_{\theta}(x, y) \hat{e}_{\theta + \pi/2} + HG_{\theta + \pi/2}(x, y) \hat{e}_{\theta} = HG_{10}(x, y) \hat{e}_V + HG_{01}(x, y) \hat{e}_H
+\]
+
+\textbf{1. First Stokes Parameter \( S_1 \):}
+
+The first Stokes parameter for this field is:
+\[
+S_1 = \langle |\psi_x|^2 \rangle - \langle |\psi_y|^2 \rangle
+\]
+where now \( \psi_x = HG_{01}(x, y) \) and \( \psi_y = HG_{10}(x, y) \). Performing the integrals:
+\begin{equation}
+    \begin{split}
+    S_1 &= \int HG_{01}(x, y) HG_{01}(x, y) \, dxdy - \int HG_{10}(x, y) HG_{10}(x, y) \, dxdy \\
+    &= 1 - 1 \\
+    &= 0
+    \end{split}
+\end{equation}
+Again, the integrals of the normalized modes are equal, so \( S_1 = 0 \).
+
+\textbf{2. Second and Third Stokes Parameters \( S_2 \) and \( S_3 \):}
+
+For the cross-term:
+\[
+\langle \psi_x^* \psi_y \rangle = \int HG_{01}^*(x, y) HG_{10}(x, y) \, dxdy
+\]
+Once again, the orthogonality of the modes leads to the vanishing of this term:
+\[
+\int HG_{01}^*(x, y) HG_{10}(x, y) \, dxdy = 0
+\]
+Thus, both \( S_2 \) and \( S_3 \) are zero:
+\[
+S_2 = 2 \text{Re}(0) = 0 \quad \text{and} \quad S_3 = 2 \text{Im}(0) = 0
+\]
+
+now for the second case 
+
+Evaluating
+
+    \begin{align*}
+     HG_{\theta}(x,y)\hat{e}_{\theta+\pi/2}=&\\
+        &\cos(\theta)^2HG_{10}(x,y)\hat{e}_{V}+\\
+        &\sin{\theta}\cos{\theta}(HG_{01}(x,y)\hat{e}_{V}(x,y)-HG_{01}(x,y)\hat{e}_{H})+\\
+        &-\sin(\theta)^2HG_{01}(x,y)\hat{e}_{H}
+    \end{align*}
+
+     \begin{align*}
+         HG_{\theta+\pi/2}(x,y)\hat{e}_{\theta}=&\\
+        &-\sin(\theta)^2HG_{10}(x,y)\hat{e}_{V}+\\
+        &\sin{\theta}\cos{\theta}(HG_{01}(x,y)\hat{e}_{V}(x,y)-HG_{01}(x,y)\hat{e}_{H})+\\
+        &cos(\theta)^2HG_{01}(x,y)\hat{e}_{H}
+    \end{align*}
+
+Now we clearly see that the sum of both terms does not lead to a $\theta $ independent field 
+
+\begin{align*}
+     HG_{\theta}(x,y)\hat{e}_{\theta+\pi/2}+HG_{\theta+\pi/2}(x,y)\hat{e}_{\theta}=&\\
+        &\cos(2\theta)(HG_{10}(x,y)\hat{e}_{V}-HG_{01}(x,y)\hat{e}_{H})+\\
+        &\sin(2\theta)(HG_{01}(x,y)\hat{e}_{V}(x,y)-HG_{01}(x,y)\hat{e}_{H})+\\
+        &
+    \end{align*}
+
+However if we take the difference 
+
+\begin{align*}
+     \psi_\theta(x,y)=&HG_{\theta}(x,y)\hat{e}_{\theta+\pi/2}-HG_{\theta+\pi/2}(x,y)\hat{e}_{\theta}\\
+        =&(\cos(\theta)^2+\sin(\theta)^2)(HG_{10}(x,y)\hat{e}_{V}-HG_{01}(x,y)\hat{e}_{H})+\\
+        =&HG_{10}(x,y)\hat{e}_{V}-HG_{01}(x,y)\hat{e}_{H}
+    \end{align*}
+which independs on $\theta$ and give again null stokes parameters due to the orthonormality of $HG_{10}$ and $H_{01}$ (where only making the exchange $\psi'_x= -\psi_y$ and $\psi'_y = \psi_x$, leading again to the same null parameters)\\
+
+\textbf{Conclusion:}
+
+For both fields, the Stokes parameters \( S_1, S_2, S_3 \) are all zero. This result follows from the normalization of the Hermite-Gaussian modes and their orthogonality, ensuring that the cross-terms vanish.
+
+\end{flushleft}
+
+
+\end{document}
